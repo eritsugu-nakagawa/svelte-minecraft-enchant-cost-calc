@@ -2,7 +2,7 @@
   import "chota";
   import CardList from "./CardListComponent.svelte";
 
-  let items = [...Array(8).keys()].map((i) => {
+  let items = [...Array(7).keys()].map((i) => {
     let j = i + 1;
     return {
       id: [i],
@@ -23,6 +23,7 @@
 
 <style>
   main {
-    margin: 2em 0;
+    width: 98%;
+    margin: 2em auto;
   }
 </style>

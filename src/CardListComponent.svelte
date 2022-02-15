@@ -1,4 +1,5 @@
 <script>
+  import { Card } from "svelte-chota";
   import CardComponent from "./CardComponent.svelte";
   export let items;
 
@@ -109,7 +110,9 @@
   }
 </script>
 
-<div>総コスト：{totalCreateCost}</div>
+<div class="cost-display">
+  <span class="card">総コスト：{totalCreateCost}</span>
+</div>
 <div class="grid" style="--count:{gridColumn}">
   {#each tmpList as row, rowIdx}
     <span
@@ -141,7 +144,6 @@
     display: grid;
     grid-template-columns: 80px repeat(var(--count), 1fr);
     row-gap: 2em;
-    width: 98%;
     margin: 0 auto;
   }
 
@@ -154,5 +156,10 @@
 
   .count.even {
     background-color: #f0f0f0;
+  }
+
+  .cost-display {
+    margin-bottom: 2em;
+    height: fit-content;
   }
 </style>

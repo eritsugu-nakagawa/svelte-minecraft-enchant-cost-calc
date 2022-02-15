@@ -28,14 +28,14 @@
   <div class="card-div">
     <div class="card">
       <dl>
-        <dt>名前</dt>
+        <!-- <dt>名前</dt> -->
         {#each card.name as name}
           <dd>{name}</dd>
         {/each}
-        <dt>基礎コスト</dt>
-        <dd>{card.cost}</dd>
-        <dt>作成コスト</dt>
-        <dd>{card.createCost}</dd>
+        <!-- <dt>基礎コスト</dt>
+        <dd>{card.cost}</dd> -->
+        <!-- <dt>作成コスト</dt> -->
+        <!-- <dd>{card.createCost}</dd> -->
       </dl>
     </div>
   </div>
