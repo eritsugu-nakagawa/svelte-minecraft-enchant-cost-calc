@@ -7,10 +7,6 @@
   export let rowIdx;
   export let columnIdx;
 
-  let gridColumnStart = card.columnStart;
-  let gridColumnEnd = card.columnEnd;
-  let gridRow = rowIdx + 1;
-
   let rowEven = rowIdx % 2 === 0;
   let columnEven = columnIdx % 2 === 0;
 </script>
@@ -23,14 +19,13 @@
   class:columnLast
   class:columnEven
   class:rowEven
-  style="grid-column:{gridColumnStart} / {gridColumnEnd}; grid-row-start:{gridRow};"
 >
-  <div class="card-div">
+  <div class="card-div" data-result-cost={card.resultCost}>
     <div class="card">
       <dl>
         <!-- <dt>名前</dt> -->
         {#each card.name as name}
-          <dd>{name}</dd>
+          <dt>{name}</dt>
         {/each}
         <!-- <dt>基礎コスト</dt>
         <dd>{card.cost}</dd> -->
@@ -46,92 +41,75 @@
     margin: 0;
   }
 
-  dd {
-    overflow-wrap: break-word;
-  }
-
   .card-wrap {
     position: relative;
-    padding: 1em;
-  }
-
-  .card-wrap::after {
-    position: absolute;
-    content: "";
-    bottom: -1em;
-    height: 2px;
-    background-color: black;
-  }
-
-  .card-wrap:not(.rowLast):not(.columnLast).columnEven::after {
-    left: 50%;
     width: 50%;
-  }
-
-  .card-wrap:not(.rowLast):not(.columnEven)::after {
-    left: 0;
-    width: 50%;
-  }
-
-  .card-wrap.rowEven {
-    background-color: #f0f0f0;
   }
 
   .card-div {
-    min-width: 160px;
-    width: fit-content;
+    min-width: 10.5rem;
+    width: 100%;
+    max-width: 80%;
     height: 100%;
     margin: 0 auto;
   }
 
-  .card-wrap:not(.rowFirst) .card-div::before {
+  .card-wrap.columnEven:not(.columnLast) .card-div::after {
     position: absolute;
     content: "";
-    top: -1em;
-    left: 50%;
+    top: 50%;
+    right: 0;
+    width: calc((100% - max(80%, 10.5rem)) / 2);
+    height: 2px;
     background-color: black;
-    width: 2px;
-    height: 2em;
   }
 
-  .card-wrap:not(.rowLast) .card-div::after {
+  .card-wrap:not(.columnEven) .card-div::before {
     position: absolute;
     content: "";
-    left: 50%;
+    top: 50%;
+    left: 0;
+    width: calc((100% - max(80%, 10.5rem)) / 2);
+    height: 2px;
     background-color: black;
-    width: 2px;
-    height: 2em;
   }
 
   .card {
     position: relative;
     height: 100%;
-    font-size: 14px;
-    padding: 1rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 0.5rem 0.5rem;
+    border: 1px solid #d3d3d3;
   }
 
   .card-wrap.columnEven:not(.columnLast) .card {
     background-color: #ffe8aa;
+    border-color: #ead59b;
   }
 
   .card-wrap.columnEven:not(.columnLast) .card::before {
     position: absolute;
     content: "主";
-    top: 0.5em;
+    top: 0.6em;
     right: 0.5em;
     color: white;
     background-color: rgb(255, 153, 0);
+    font-size: 0.8rem;
     font-weight: bold;
-    width: 1.6em;
+    width: 1.3rem;
+    line-height: 1.3rem;
     text-align: center;
     border-radius: 5px;
   }
 
-  .card-wrap.columnFirst.columnLast.rowLast .card {
-    background-color: #aec8ff;
-  }
-
-  dd {
-    margin-left: 1em;
+  .card-wrap:not(.columnEven) .card-div::after {
+    position: absolute;
+    content: attr(data-result-cost);
+    top: calc(50% - 1.2rem);
+    left: -0.7rem;
+    font-size: 0.7rem;
+    width: 2em;
+    text-align: center;
   }
 </style>

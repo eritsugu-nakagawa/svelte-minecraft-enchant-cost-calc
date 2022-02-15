@@ -1,12 +1,12 @@
 <script>
-  import "chota";
+  import "bulma/css/bulma.css";
   import CardList from "./CardListComponent.svelte";
 
-  let items = [...Array(7).keys()].map((i) => {
+  let items = [...Array(8).keys()].map((i) => {
     let j = i + 1;
     return {
       id: [i],
-      name: ["item" + j],
+      name: ["射撃ダメージ増加V" + j],
       cost: j,
       createCount: 0,
       createCost: 0,

@@ -1,5 +1,4 @@
 <script>
-  import { Card } from "svelte-chota";
   import CardComponent from "./CardComponent.svelte";
   export let items;
 
@@ -20,6 +19,7 @@
     }
   });
 
+  minObj.pop();
   let tmpList = minObj;
   let totalCreateCost = minCost;
 
@@ -73,6 +73,8 @@
             columnEnd: tmpList[idx + 1].columnEnd,
           });
 
+          tmpList[idx + 1].resultCost = createCost;
+
           totalCreateCost += createCost;
           canCreate = canCreate ? createCost < MAX_CAN_CREATE_COST : false;
         }
@@ -110,56 +112,47 @@
   }
 </script>
 
-<div class="cost-display">
-  <span class="card">総コスト：{totalCreateCost}</span>
-</div>
-<div class="grid" style="--count:{gridColumn}">
+<div class="block result">
+  <div class="notification is-success cost-display">
+    総コスト：{totalCreateCost}
+  </div>
   {#each tmpList as row, rowIdx}
-    <span
-      class="count {rowIdx % 2 === 0 ? 'even' : ''}"
-      style="grid-row-start:{rowIdx + 1}"
-    >
-      {#if rowIdx < tmpList.length - 1}
-        {rowIdx + 1}回目
-      {:else}
-        完成
-      {/if}
-    </span>
-    {#each row as card, columnIdx}
-      <CardComponent
-        {card}
-        rowFirst={rowIdx === 0}
-        rowLast={rowIdx === tmpList.length - 1}
-        columnFirst={columnIdx === 0}
-        columnLast={columnIdx === row.length - 1}
-        {rowIdx}
-        {columnIdx}
-      />
-    {/each}
+    <div class="notification">
+      <div>{rowIdx + 1}回目</div>
+      <div class="flex">
+        {#each row as card, columnIdx}
+          <CardComponent
+            {card}
+            rowFirst={rowIdx === 0}
+            rowLast={rowIdx === tmpList.length - 1}
+            columnFirst={columnIdx === 0}
+            columnLast={columnIdx === row.length - 1}
+            {rowIdx}
+            {columnIdx}
+          />
+        {/each}
+      </div>
+    </div>
   {/each}
 </div>
 
 <style>
-  .grid {
-    display: grid;
-    grid-template-columns: 80px repeat(var(--count), 1fr);
-    row-gap: 2em;
-    margin: 0 auto;
+  .result {
+    width: max(30%, 32rem);
   }
 
-  .count {
+  .flex {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-
-  .count.even {
-    background-color: #f0f0f0;
+    flex-wrap: wrap;
+    row-gap: 1.5rem;
+    padding: 0.5em;
   }
 
   .cost-display {
-    margin-bottom: 2em;
-    height: fit-content;
+    font-size: 1.2rem;
+  }
+
+  .notification {
+    padding: 1.25rem 1rem 1.25rem 1rem;
   }
 </style>
