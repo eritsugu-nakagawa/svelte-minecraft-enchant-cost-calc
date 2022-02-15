@@ -1,8 +1,10 @@
 <script>
   import "bulma/css/bulma.css";
   import CardList from "./CardListComponent.svelte";
+  import SelectList from "./SelectListComponent.svelte";
 
-  let items = [...Array(8).keys()].map((i) => {
+  let itemCount = 5;
+  $: items = [...Array(itemCount).keys()].map((i) => {
     let j = i + 1;
     return {
       id: [i],
@@ -18,12 +20,14 @@
 </script>
 
 <main>
-  <CardList {items} />
+  <CardList bind:items />
+  <SelectList bind:itemCount />
 </main>
 
 <style>
   main {
+    display: flex;
     width: 98%;
-    margin: 2em auto;
+    margin: 1em auto;
   }
 </style>

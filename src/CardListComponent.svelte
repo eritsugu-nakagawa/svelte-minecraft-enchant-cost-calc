@@ -2,28 +2,31 @@
   import CardComponent from "./CardComponent.svelte";
   export let items;
 
-  let minCost = 1000;
-  let minObj;
-  let patternList = junretsu(items, items.length);
-  patternList.forEach((ptn) => {
-    let tmpPtn = ptn.map((elm, i) => {
-      elm.columnStart = i + 2;
-      elm.columnEnd = i + 3;
-      return elm;
+  $: [tmpList, totalCreateCost] = searchMinCost(items);
+
+  function searchMinCost(items) {
+    let minCost = 1000;
+    let minObj;
+    let patternList = junretsu(items, items.length);
+
+    patternList.forEach((ptn) => {
+      let tmpPtn = ptn.map((elm, i) => {
+        elm.columnStart = i + 2;
+        elm.columnEnd = i + 3;
+        return elm;
+      });
+
+      let [tmpList, createCost, canCreate] = spreadItems(tmpPtn);
+      if (createCost < minCost && canCreate) {
+        minCost = createCost;
+        minObj = tmpList;
+      }
     });
 
-    let [tmpList, createCost, canCreate] = spreadItems(tmpPtn);
-    if (createCost < minCost && canCreate) {
-      minCost = createCost;
-      minObj = tmpList;
-    }
-  });
+    minObj.pop();
 
-  minObj.pop();
-  let tmpList = minObj;
-  let totalCreateCost = minCost;
-
-  let gridColumn = tmpList[0].length;
+    return [minObj, minCost];
+  }
 
   function spreadItems(items) {
     let tmpList = [];
