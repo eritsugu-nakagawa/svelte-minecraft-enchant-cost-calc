@@ -4,6 +4,6 @@
 }
 
 * {
-  font-family: "kanamecho", "DotfGothic16", "Meiryo UI", sans-serif;
+  font-family: "kanamecho", "DotfGothic16", "Meiryo UI", sans-serif !important;
   letter-spacing: 2px;
 }
