@@ -1,10 +1,9 @@
 @font-face {
   font-family: "kanamecho";
-  src: url("./fonts/JF-Dot-Kaname12.woff2") format("woff2"),
-    url("./fonts/JF-Dot-Kaname12.ttf") format("truetype");
+  src: url("./fonts/JF-Dot-Kaname12.ttf") format("truetype");
 }
 
 * {
-  font-family: "kanamecho", "DotfGothic16", "Meiryo UI", sans-serif;
+  font-family: "kanamecho", "DotfGothic16", "Meiryo UI", sans-serif !important;
   letter-spacing: 2px;
 }

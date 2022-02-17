@@ -5,6 +5,8 @@
   $: [tmpList, totalCreateCost] = searchMinCost(items);
 
   function searchMinCost(items) {
+    if (!items.length) return [[], 0];
+
     let minCost = 1000;
     let minObj;
     let patternList = junretsu(items, items.length);
@@ -116,7 +118,7 @@
 </script>
 
 <div class="block result">
-  <div class="notification is-success cost-display">
+  <div class="notification is-primary cost-display">
     総コスト：{totalCreateCost}
   </div>
   {#each tmpList as row, rowIdx}
